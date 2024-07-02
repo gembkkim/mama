@@ -12,10 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      //debugShowCheckedModeBanner: false,
       title: 'mama-app',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        //primarySwatch: Colors.blue,
       ),
       home: const MyPage(),
     );
@@ -30,7 +30,8 @@ class MyPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Home",
+        title: //Image.asset('./images/test.png')
+        const Text("Home",
             style: TextStyle(
               color: Colors.black, //텍스트 색 지정
               fontSize: 20, //폰트 사이즈
