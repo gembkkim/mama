@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mama/other.dart';
 import 'package:mama/other1.dart';
+import 'package:mama/mssql1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -72,6 +73,22 @@ class MyPage extends StatelessWidget {
                   fontSize: 20, //폰트 사이즈
                   fontWeight: FontWeight.normal,
                 )//텍스트 굵기
+            ),
+            const SizedBox(height: 20),
+            TextButton(
+              child: Text(
+                  "Text button : MSSQL 페이지 호출"
+              ),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.green,
+              ),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              },
             ),
             const SizedBox(height: 20),
             TextButton(
@@ -178,39 +195,39 @@ class MyPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             // 4. TextButton에 icon 넣기
-            TextButton.icon(
-              // 버튼을 비활성화 하는 경우 onPressed 속성에 null값 줌
-              onPressed: null,
-              icon: Icon(Icons.home,
-                size: 30.0,
-              ),
-              label: Text('Go home'),
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.black54,
-                // 비활성화 된 버튼의 색상을 바꿀때는 disabled- 사용
-                disabledForegroundColor: Colors.pink.withOpacity(0.20),
-                disabledBackgroundColor: Colors.pink.withOpacity(0.20),
-              ),
-            ),
-            const SizedBox(height: 20),
+            // TextButton.icon(
+            //   // 버튼을 비활성화 하는 경우 onPressed 속성에 null값 줌
+            //   onPressed: null,
+            //   icon: Icon(Icons.home,
+            //     size: 30.0,
+            //   ),
+            //   label: Text('Go home'),
+            //   style: TextButton.styleFrom(
+            //     foregroundColor: Colors.white,
+            //     backgroundColor: Colors.black54,
+            //     // 비활성화 된 버튼의 색상을 바꿀때는 disabled- 사용
+            //     disabledForegroundColor: Colors.pink.withOpacity(0.20),
+            //     disabledBackgroundColor: Colors.pink.withOpacity(0.20),
+            //   ),
+            // ),
+            //const SizedBox(height: 20),
             // 5. ButtonBar : 화면에 끝정렬해서 버튼 나타나게 해 줌
-            ButtonBar(
-              //중앙정렬
-              alignment: MainAxisAlignment.center,
-              //padding 적용
-              buttonPadding: EdgeInsets.all(20),
-              children: [
-                TextButton(
-                    onPressed: (){},
-                    child: Text('TextButton')
-                ),
-                ElevatedButton(
-                    onPressed: (){},
-                    child: Text('ElevatedButton')
-                )	// 아래는 괄호 파티 시작,,,,,
-              ],
-            )
+            // ButtonBar(
+            //   //중앙정렬
+            //   alignment: MainAxisAlignment.center,
+            //   //padding 적용
+            //   buttonPadding: EdgeInsets.all(20),
+            //   children: [
+            //     TextButton(
+            //         onPressed: (){},
+            //         child: Text('TextButton')
+            //     ),
+            //     ElevatedButton(
+            //         onPressed: (){},
+            //         child: Text('ElevatedButton')
+            //     )	// 아래는 괄호 파티 시작,,,,,
+            //   ],
+            // )
           ],
         ),
       ),
