@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mama/other.dart';
+import 'package:mama/other1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -69,6 +71,38 @@ class MyPage extends StatelessWidget {
                   fontSize: 20, //폰트 사이즈
                   fontWeight: FontWeight.normal,
                 )//텍스트 굵기
+            ),
+            const SizedBox(height: 20),
+            TextButton(
+              child: Text(
+                  "Text button : Other 페이지 호출"
+              ),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.grey,
+              ),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => OtherPage()),
+                );
+              },
+            ),
+            const SizedBox(height: 20),
+            TextButton(
+              child: Text(
+                  "Text button : Other1 페이지 호출"
+              ),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.grey,
+              ),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Other1Page()),
+                );
+              },
             ),
             const SizedBox(height: 20),
             TextButton(
