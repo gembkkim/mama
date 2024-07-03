@@ -47,7 +47,6 @@ class _HomePageState extends State<HomePage> {
       readQuery = "sp_users_s",
       writeQuery = "sp_users_u";
   final _sqlConnection = MssqlConnection.getInstance();
-  final _mssqlConnection = MssqlConnection.getInstance();
   final pageController = PageController();
 
   @override
@@ -156,7 +155,7 @@ class _HomePageState extends State<HomePage> {
         autovalidateMode ? AutovalidateMode.onUserInteraction : null,
         inputFormatters: [
           //if (title == "IP address")
-            //FilteringTextInputFormatter.allow(RegExp(r'[\d\.]')),
+          //FilteringTextInputFormatter.allow(RegExp(r'[\d\.]')),
           if (title == "Port") ...[
             FilteringTextInputFormatter.digitsOnly,
             LengthLimitingTextInputFormatter(4)
@@ -177,34 +176,6 @@ class _HomePageState extends State<HomePage> {
           return null;
         },
       );
-
-  connectDbMssql() async {
-
-    String ip = "192.168.45.3";
-    String port = "1433";
-    String username = "tester";
-    String password = "qwer1324";
-    String databaseName = "testdb";
-
-    _mssqlConnection.connect(
-        ip: ip,
-        port: port,
-        databaseName: databaseName,
-        username: username,
-        password: password)
-        .then((value) {
-      if (value) {
-        print("MSSQL ::: Connection Established!");
-        // toastMessage("Connection Established", color: Colors.green);
-        // pageController.nextPage(
-        //     duration: const Duration(milliseconds: 500),
-        //     curve: Curves.easeInOut);
-      } else {
-        print("MSSQL ::: Connection Failed!");
-        //toastMessage("Connection Failed", color: Colors.redAccent);
-      }
-    });
-  }
 
   connect() async {
     if (ip.isEmpty ||

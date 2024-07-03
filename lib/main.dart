@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mama/other.dart';
 import 'package:mama/other1.dart';
-import 'package:mama/mssql1.dart';
+import 'package:mama/mssql.dart';
+
+MSSQL ms = MSSQL();
 
 void main() {
+
   runApp(const MyApp());
 }
 
@@ -49,7 +52,7 @@ class MyPage extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             const Text(
-              "Hello1",
+              "Hello",
               style: TextStyle(
                 color: Colors.black, //텍스트 색 지정
                 fontSize: 20, //폰트 사이즈
@@ -57,38 +60,68 @@ class MyPage extends StatelessWidget {
               )//텍스트 굵기
             ),
             const SizedBox(height: 20),
-            const Text(
-                "Hello2",
-                style: TextStyle(
-                  color: Colors.black, //텍스트 색 지정
-                  fontSize: 20, //폰트 사이즈
-                  fontWeight: FontWeight.normal,
-                )//텍스트 굵기
-            ),
-            const SizedBox(height: 20),
-            const Text(
-                "Hello3",
-                style: TextStyle(
-                  color: Colors.black, //텍스트 색 지정
-                  fontSize: 20, //폰트 사이즈
-                  fontWeight: FontWeight.normal,
-                )//텍스트 굵기
-            ),
-            const SizedBox(height: 20),
-            TextButton(
-              child: Text(
-                  "Text button : MSSQL 페이지 호출"
-              ),
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.black,
-                backgroundColor: Colors.green,
-              ),
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  child: Text(
+                      "MSSQL-Connect"
+                  ),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.green,
+                  ),
+                  onPressed: (){
+                    //MSSQL ms = new MSSQL();
+                    ms.connectDbMssql();
+                    //페이지 이동
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => HomePage()),
+                    // );
+                  },
+                ),
+                const SizedBox(width: 20),
+                TextButton(
+                  child: Text(
+                      "MSSQL-select"
+                  ),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.green,
+                  ),
+                  onPressed: (){
+
+                    //ms.connectDbMssql();
+                    ms.selectDbMssql("sp_users_s");
+                    //페이지 이동
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => HomePage()),
+                    // );
+                  },
+                ),
+                const SizedBox(width: 20),
+                TextButton(
+                  child: Text(
+                      "MSSQL-affect"
+                  ),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.green,
+                  ),
+                  onPressed: (){
+                    //MSSQL ms = new MSSQL();
+                    //ms.connectDbMssql();
+                    ms.affectDbMssql("sp_users_u");
+                    //페이지 이동
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => HomePage()),
+                    // );
+                  },
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             TextButton(
