@@ -6,7 +6,6 @@ import 'package:mama/mssql.dart';
 MSSQL ms = MSSQL();
 
 void main() {
-
   runApp(const MyApp());
 }
 
@@ -94,6 +93,23 @@ class MyPage extends StatelessWidget {
 
                     //ms.connectDbMssql();
                     ms.selectDbMssql("sp_users_s");
+                    //페이지 이동
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => HomePage()),
+                    // );
+                  },
+                ),
+                const SizedBox(width: 20),
+                TextButton(
+                  child: Text(
+                      "사용자 목록 페이지 이동"
+                  ),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.red,
+                  ),
+                  onPressed: (){
                     //페이지 이동
                     // Navigator.push(
                     //   context,

@@ -48,10 +48,10 @@ class MSSQL {
       }
       print("MSSQL ::: selectDbMssql ::: query = $query");
       var startTime = DateTime.now();
-      var result = await _mssqlConnection.getData(query);
+      var results = await _mssqlConnection.getData(query);
       var difference = DateTime.now().difference(startTime);
-      print("MSSQL ::: selectDbMssql ::: Duration = $difference and RecordCount = ${jsonDecode(result).length}");
-      print("MSSQL ::: selectDbMssql ::: Results = $result");
+      print("MSSQL ::: selectDbMssql ::: Duration = $difference and RecordCount = ${jsonDecode(results).length}");
+      print("MSSQL ::: selectDbMssql ::: Results = $results");
     } on PlatformException catch (e) {
       print("MSSQL ::: selectDbMssql ::: error = $e.message");
     }
@@ -65,11 +65,11 @@ class MSSQL {
       }
       print("MSSQL ::: affectDbMssql ::: query = $query");
       var startTime = DateTime.now();
-      var result = await _mssqlConnection.writeData(writeQuery);
+      var results = await _mssqlConnection.writeData(writeQuery);
       var difference = DateTime.now().difference(startTime);
       //if (!mounted) return;
       print("MSSQL ::: affectDbMssql ::: Duration: $difference");
-      print("MSSQL ::: affectDbMssql ::: Results = $result");
+      print("MSSQL ::: affectDbMssql ::: Results = $results");
     } on PlatformException catch (e) {
       print("MSSQL ::: affectDbMssql ::: error = $e.message");
     }
