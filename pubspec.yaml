@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   mssql_connection: ^1.1.3
   fluttertoast: ^8.2.6
+  http: ^1.2.1
+  camera: ^0.11.0+1
 
 dev_dependencies:
   flutter_test:
@@ -61,23 +63,23 @@ flutter:
   uses-material-design: true
   assets:
     - images/test.png
-    - images\icons\alllist.png
-    - images\icons\answered.png
-    - images\icons\calendar.png
-    - images\icons\Collaboration.png
-    - images\icons\createproject.png
-    - images\icons\leave.png
-    - images\icons\login.png
-    - images\icons\logout.png
-    - images\icons\myanswered.png
-    - images\icons\project.png
-    - images\icons\regist.png
-    - images\icons\signup.png
-    - images\icons\task.png
-    - images\icons\unanswered.png
-    - images\icons\workman.png
-    - images\icons\workorder.png
-    - images\icons\workreport.png
+    - images/icons/alllist.png
+    - images/icons/answered.png
+    - images/icons/calendar.png
+    - images/icons/Collaboration.png
+    - images/icons/createproject.png
+    - images/icons/leave.png
+    - images/icons/login.png
+    - images/icons/logout.png
+    - images/icons/myanswered.png
+    - images/icons/project.png
+    - images/icons/regist.png
+    - images/icons/signup.png
+    - images/icons/task.png
+    - images/icons/unanswered.png
+    - images/icons/workman.png
+    - images/icons/workorder.png
+    - images/icons/workreport.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

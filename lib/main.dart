@@ -1,11 +1,25 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:mama/other.dart';
 import 'package:mama/other1.dart';
+import 'package:mama/user_list_1.dart';
+import 'package:mama/temp/json_parse.dart';
+import 'package:mama/camara1.dart';
 import 'package:mama/mssql.dart';
 
 MSSQL ms = MSSQL();
+late List<CameraDescription> _cameras;
 
-void main() {
+Future<void> main() async {
+
+  // 앱이 실행되기 전에 필요한 초기화 작업을 수행하는 메서드
+  // main 함수에서만 호출 가능
+  // 사용가능한 카메라를 확인하기 위함
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 사용 가능한 카메라 확인
+  _cameras = await availableCameras();
+
   runApp(const MyApp());
 }
 
@@ -15,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       title: 'mama-app',
       theme: ThemeData(
         //primarySwatch: Colors.blue,
@@ -83,16 +97,21 @@ class MyPage extends StatelessWidget {
                 const SizedBox(width: 20),
                 TextButton(
                   child: Text(
-                      "MSSQL-select"
+                      "select"
                   ),
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.black,
                     backgroundColor: Colors.green,
                   ),
                   onPressed: (){
-
-                    //ms.connectDbMssql();
-                    ms.selectDbMssql("sp_users_s");
+                    Future<String> sj = ms.selectDbMssql("sp_users_s");
+                    sj.then((sj) {
+                      //final List<dynamic> dl;
+                      print("main.dart ::: sj = $sj"); //Json Data
+                      //Map<String, dynamic> user = jsonDecode(sj);
+                    }).catchError((error) {
+                      print('error: $error');
+                    });
                     //페이지 이동
                     // Navigator.push(
                     //   context,
@@ -103,24 +122,7 @@ class MyPage extends StatelessWidget {
                 const SizedBox(width: 20),
                 TextButton(
                   child: Text(
-                      "사용자 목록 페이지 이동"
-                  ),
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.red,
-                  ),
-                  onPressed: (){
-                    //페이지 이동
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => HomePage()),
-                    // );
-                  },
-                ),
-                const SizedBox(width: 20),
-                TextButton(
-                  child: Text(
-                      "MSSQL-affect"
+                      "affect"
                   ),
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.black,
@@ -133,11 +135,79 @@ class MyPage extends StatelessWidget {
                     //페이지 이동
                     // Navigator.push(
                     //   context,
-                    //   MaterialPageRoute(builder: (context) => HomePage()),
+                    //   MaterialPageRoute(builder: (context) => JsonParse()),
                     // );
                   },
                 ),
               ],
+            ),
+            const SizedBox(width: 20),
+            TextButton(
+              child: Text(
+                  "사용자 목록 페이지 이동"
+              ),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.red,
+              ),
+              onPressed: (){
+                //페이지 이동
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => HomePage()),
+                // );
+              },
+            ),
+            const SizedBox(width: 20),
+            TextButton(
+              child: Text(
+                  "JSON파싱 샘플 페이지 이동"
+              ),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.blue,
+              ),
+              onPressed: (){
+                //페이지 이동
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => JsonParse()),
+                );
+              },
+            ),
+            const SizedBox(width: 20),
+            TextButton(
+              child: Text(
+                  "UserList1 샘플 페이지 이동"
+              ),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.orangeAccent,
+              ),
+              onPressed: (){
+                //페이지 이동
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserList1()),
+                );
+              },
+            ),
+            const SizedBox(width: 20),
+            TextButton(
+              child: Text(
+                  "카메라 촬영하기"
+              ),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.black87,
+              ),
+              onPressed: (){
+                //페이지 이동
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CameraApp()),
+                );
+              },
             ),
             const SizedBox(height: 20),
             TextButton(

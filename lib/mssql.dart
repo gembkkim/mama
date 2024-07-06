@@ -40,20 +40,23 @@ class MSSQL {
     });
   }
 
-  selectDbMssql(String query) async {
+  Future<String> selectDbMssql(String query) async {
     try {
       if (query.isEmpty) {
         print("MSSQL ::: selectDbMssql ::: query = empty!");
-        return;
+        return '';
       }
       print("MSSQL ::: selectDbMssql ::: query = $query");
       var startTime = DateTime.now();
       var results = await _mssqlConnection.getData(query);
+      //var results = _mssqlConnection.getData(query);
       var difference = DateTime.now().difference(startTime);
       print("MSSQL ::: selectDbMssql ::: Duration = $difference and RecordCount = ${jsonDecode(results).length}");
       print("MSSQL ::: selectDbMssql ::: Results = $results");
+      return results;
     } on PlatformException catch (e) {
       print("MSSQL ::: selectDbMssql ::: error = $e.message");
+      return '';
     }
   }
 
