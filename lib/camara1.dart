@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 
-late List<CameraDescription> _cameras;
+//late List<CameraDescription> _cameras;
 
 class CameraApp extends StatefulWidget {
   const CameraApp({super.key});

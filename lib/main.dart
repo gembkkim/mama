@@ -8,6 +8,7 @@ import 'package:mama/camara1.dart';
 import 'package:mama/mssql.dart';
 
 MSSQL ms = MSSQL();
+
 late List<CameraDescription> _cameras;
 
 Future<void> main() async {
