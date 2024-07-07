@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:mama/user_list_data.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mama/mssql.dart';
@@ -14,7 +15,7 @@ class UserListServices{
     MSSQL().connectDbMssql();
     String jsonUserList = await MSSQL().selectDbMssql("sp_users_s");
 
-    print("jsonUserList = ${jsonUserList.toString()}");
+    debugPrint("jsonUserList = ${jsonUserList.toString()}");
     userList = userFromJson(jsonUserList.toString());
     return userList;
   }

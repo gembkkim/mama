@@ -5,13 +5,33 @@ import 'package:mama/other1.dart';
 import 'package:mama/user_list_1.dart';
 import 'package:mama/temp/json_parse.dart';
 import 'package:mama/camara1.dart';
+import 'package:logger/logger.dart';
 import 'package:mama/mssql.dart';
+
+var logger = Logger(
+  printer: PrettyPrinter(),
+);
+
+var loggerNoStack = Logger(
+  printer: PrettyPrinter(methodCount: 0),
+);
 
 MSSQL ms = MSSQL();
 
 late List<CameraDescription> _cameras;
 
 Future<void> main() async {
+  logger.d('Log message with 2 methods');
+
+  loggerNoStack.i('Info message');
+
+  loggerNoStack.w('Just a warning!');
+
+  logger.e('Error! Something bad happened', error: 'Test Error');
+
+  loggerNoStack.t({'key': 5, 'value': 'something'});
+
+  Logger(printer: SimplePrinter(colors: true)).t('boom');
 
   // 앱이 실행되기 전에 필요한 초기화 작업을 수행하는 메서드
   // main 함수에서만 호출 가능
@@ -33,8 +53,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'mama-app',
       theme: ThemeData(
-        //primarySwatch: Colors.blue,
-      ),
+          //primarySwatch: Colors.blue,
+          ),
       home: const MyPage(),
     );
   }
@@ -49,43 +69,38 @@ class MyPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: //Image.asset('./images/test.png')
-        const Text("Home",
-            style: TextStyle(
-              color: Colors.black, //텍스트 색 지정
-              fontSize: 20, //폰트 사이즈
-              fontWeight: FontWeight.normal,
-            )
-        ),
+            const Text("Home",
+                style: TextStyle(
+                  color: Colors.black, //텍스트 색 지정
+                  fontSize: 20, //폰트 사이즈
+                  fontWeight: FontWeight.normal,
+                )),
         centerTitle: true,
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         elevation: 0.0,
       ),
-      body:Center(
+      body: Center(
         child: Column(
           children: [
             const SizedBox(height: 20),
-            const Text(
-              "Hello",
-              style: TextStyle(
-                color: Colors.black, //텍스트 색 지정
-                fontSize: 20, //폰트 사이즈
-                fontWeight: FontWeight.normal,
-              )//텍스트 굵기
-            ),
+            const Text("Hello",
+                style: TextStyle(
+                  color: Colors.black, //텍스트 색 지정
+                  fontSize: 20, //폰트 사이즈
+                  fontWeight: FontWeight.normal,
+                ) //텍스트 굵기
+                ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                  child: Text(
-                      "MSSQL-Connect"
-                  ),
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.black,
                     backgroundColor: Colors.green,
                   ),
-                  onPressed: (){
+                  onPressed: () {
                     //MSSQL ms = new MSSQL();
                     ms.connectDbMssql();
                     //페이지 이동
@@ -94,24 +109,22 @@ class MyPage extends StatelessWidget {
                     //   MaterialPageRoute(builder: (context) => HomePage()),
                     // );
                   },
+                  child: const Text("MSSQL-Connect"),
                 ),
                 const SizedBox(width: 20),
                 TextButton(
-                  child: Text(
-                      "select"
-                  ),
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.black,
                     backgroundColor: Colors.green,
                   ),
-                  onPressed: (){
+                  onPressed: () {
                     Future<String> sj = ms.selectDbMssql("sp_users_s");
                     sj.then((sj) {
                       //final List<dynamic> dl;
-                      print("main.dart ::: sj = $sj"); //Json Data
+                      debugPrint("main.dart ::: sj = $sj"); //Json Data
                       //Map<String, dynamic> user = jsonDecode(sj);
                     }).catchError((error) {
-                      print('error: $error');
+                      debugPrint('error: $error');
                     });
                     //페이지 이동
                     // Navigator.push(
@@ -119,17 +132,15 @@ class MyPage extends StatelessWidget {
                     //   MaterialPageRoute(builder: (context) => HomePage()),
                     // );
                   },
+                  child: const Text("select"),
                 ),
                 const SizedBox(width: 20),
                 TextButton(
-                  child: Text(
-                      "affect"
-                  ),
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.black,
                     backgroundColor: Colors.green,
                   ),
-                  onPressed: (){
+                  onPressed: () {
                     //MSSQL ms = new MSSQL();
                     //ms.connectDbMssql();
                     ms.affectDbMssql("sp_users_u");
@@ -139,119 +150,105 @@ class MyPage extends StatelessWidget {
                     //   MaterialPageRoute(builder: (context) => JsonParse()),
                     // );
                   },
+                  child: const Text("affect"),
                 ),
               ],
             ),
             const SizedBox(width: 20),
             TextButton(
-              child: Text(
-                  "사용자 목록 페이지 이동"
-              ),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.black,
                 backgroundColor: Colors.red,
               ),
-              onPressed: (){
+              onPressed: () {
                 //페이지 이동
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(builder: (context) => HomePage()),
                 // );
               },
+              child: const Text("사용자 목록 페이지 이동"),
             ),
             const SizedBox(width: 20),
             TextButton(
-              child: Text(
-                  "JSON파싱 샘플 페이지 이동"
-              ),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.black,
                 backgroundColor: Colors.blue,
               ),
-              onPressed: (){
+              onPressed: () {
                 //페이지 이동
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => JsonParse()),
+                  MaterialPageRoute(builder: (context) => const JsonParse()),
                 );
               },
+              child: const Text("JSON파싱 샘플 페이지 이동"),
             ),
             const SizedBox(width: 20),
             TextButton(
-              child: Text(
-                  "UserList1 샘플 페이지 이동"
-              ),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.black,
                 backgroundColor: Colors.orangeAccent,
               ),
-              onPressed: (){
+              onPressed: () {
                 //페이지 이동
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UserList1()),
+                  MaterialPageRoute(builder: (context) => const UserList1()),
                 );
               },
+              child: const Text("UserList1 샘플 페이지 이동"),
             ),
             const SizedBox(width: 20),
             TextButton(
-              child: Text(
-                  "카메라 촬영하기"
-              ),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.black87,
               ),
-              onPressed: (){
+              onPressed: () {
                 //페이지 이동
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CameraApp()),
+                  MaterialPageRoute(builder: (context) => const CameraApp()),
                 );
               },
+              child: const Text("카메라 촬영하기"),
             ),
             const SizedBox(height: 20),
             TextButton(
-              child: Text(
-                  "Text button : Other 페이지 호출"
-              ),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.black,
                 backgroundColor: Colors.grey,
               ),
-              onPressed: (){
+              onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => OtherPage()),
+                  MaterialPageRoute(builder: (context) => const OtherPage()),
                 );
               },
+              child: const Text("Text button : Other 페이지 호출"),
             ),
             const SizedBox(height: 20),
             TextButton(
-              child: Text(
-                  "Text button : Other1 페이지 호출"
-              ),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.black,
                 backgroundColor: Colors.grey,
               ),
-              onPressed: (){
+              onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Other1Page()),
+                  MaterialPageRoute(builder: (context) => const Other1Page()),
                 );
               },
+              child: const Text("Text button : Other1 페이지 호출"),
             ),
             const SizedBox(height: 20),
             TextButton(
-              child: Text(
-                "Text button :  : Snack Bar Action Message"
-             ),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.black,
                 backgroundColor: Colors.grey,
               ),
-              onPressed: (){
+              onPressed: () {
                 //스넥바 호출하는 부분이 새로운 버젼에서 아래와 같이 바뀌었다.
                 //스넥바와 토스트는 비슷한 동작을 한다.
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -260,34 +257,32 @@ class MyPage extends StatelessWidget {
                   action: SnackBarAction(
                     label: 'ACTION',
                     onPressed: () {
-                      print('Snack Bar Action is clicked');
+                      debugPrint('Snack Bar Action is clicked');
                     },
                   ),
                 ));
                 //print('TextButton is clicked!!!');
                 //print("Button Show me is clicked!!!");
               },
+              child: const Text("Text button ::: Snack Bar Action Message"),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: (){
-                print('Elevated button');
+              onPressed: () {
+                debugPrint('Elevated button');
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: const Text('My snack bar message',
+                  content: const Text(
+                    'My snack bar message',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
-
                     ),
                   ),
                   backgroundColor: Colors.grey[600],
                   duration: const Duration(seconds: 3),
                   // 버튼 액션을 넣을때 사용하는 방법
-                )
-                );
-
+                ));
               },
-              child: Text('Elevated button : Snack Bar Message'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.grey,
@@ -297,21 +292,21 @@ class MyPage extends StatelessWidget {
                 ),
                 elevation: 0.0,
               ),
+              child: const Text('Elevated button : Snack Bar Message'),
             ),
             const SizedBox(height: 20),
             OutlinedButton(
-              onPressed: (){
-                print('Outlined button');
+              onPressed: () {
+                debugPrint('Outlined button');
               },
-              child: Text('Outlined button'),
               style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.black,
-                  side: BorderSide(
+                  side: const BorderSide(
                     color: Colors.grey,
                     width: 3.0,
-                  )
-              ),
+                  )),
+              child: const Text('Outlined button'),
             ),
             const SizedBox(height: 20),
             // 4. TextButton에 icon 넣기
@@ -354,5 +349,3 @@ class MyPage extends StatelessWidget {
     );
   }
 }
-
-

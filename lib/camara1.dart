@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 
-//late List<CameraDescription> _cameras;
+late List<CameraDescription> _cameras;
 
 class CameraApp extends StatefulWidget {
   const CameraApp({super.key});
@@ -37,11 +37,11 @@ class CameraAppState extends State<CameraApp> {
       if (e is CameraException) {
         switch (e.code) {
           case 'CameraAccessDenied':
-            print("CameraController Error : CameraAccessDenied");
+            debugPrint("CameraController Error : CameraAccessDenied");
             // Handle access errors here.
             break;
           default:
-            print("CameraController Error");
+            debugPrint("CameraController Error");
             // Handle other errors here.
             break;
         }
