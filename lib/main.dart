@@ -7,6 +7,7 @@ import 'package:mama/temp/json_parse.dart';
 import 'package:mama/camara1.dart';
 import 'package:logger/logger.dart';
 import 'package:mama/mssql.dart';
+import 'package:mama/camera2.dart';
 
 var logger = Logger(
   printer: PrettyPrinter(),
@@ -213,6 +214,21 @@ class MyPage extends StatelessWidget {
                 );
               },
               child: const Text("카메라 촬영하기"),
+            ),
+            const SizedBox(width: 20),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.black87,
+              ),
+              onPressed: () {
+                //페이지 이동
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ImageUpload()),
+                );
+              },
+              child: const Text("카메라 촬영하기2"),
             ),
             const SizedBox(height: 20),
             TextButton(
