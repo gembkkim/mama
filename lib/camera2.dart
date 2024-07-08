@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 class ImageUpload extends StatefulWidget {
+  const ImageUpload({super.key});
 
   @override
   State<ImageUpload> createState() => ImageUploadState();
@@ -18,18 +19,18 @@ class ImageUploadState extends State<ImageUpload> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Row(
                   children: [
                     //카메라로 촬영하기
                     Container(
-                        margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(color: Colors.lightBlueAccent, borderRadius: BorderRadius.circular(5),
                           boxShadow: [
                             BoxShadow(color: Colors.grey.withOpacity(0.5), spreadRadius: 0.5, blurRadius: 5)
@@ -45,13 +46,13 @@ class ImageUploadState extends State<ImageUpload> {
                                 });
                               }
                             },
-                            icon: Icon(Icons.add_a_photo, size: 30, color: Colors.white,)
+                            icon: const Icon(Icons.add_a_photo, size: 30, color: Colors.white,)
                         )
                     ),
                     //갤러리에서 가져오기
                     Container(
-                        margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(color: Colors.lightBlueAccent, borderRadius: BorderRadius.circular(5),
                           boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.5), spreadRadius: 0.5, blurRadius: 5)],
                         ),
@@ -62,7 +63,7 @@ class ImageUploadState extends State<ImageUpload> {
                               images.addAll(multiImage);
                             });
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.add_photo_alternate_outlined,
                               size: 30,
                               color: Colors.white,
@@ -72,12 +73,12 @@ class ImageUploadState extends State<ImageUpload> {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.all(10),
-                  child: GridView.builder(padding: EdgeInsets.all(0),
+                  margin: const EdgeInsets.all(10),
+                  child: GridView.builder(padding: const EdgeInsets.all(0),
                     shrinkWrap: true,
                     itemCount: images.length, //보여줄 item 개수. images 리스트 변수에 담겨있는 사진 수 만큼.
                     gridDelegate:
-                    SliverGridDelegateWithFixedCrossAxisCount(
+                    const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3, //1 개의 행에 보여줄 사진 개수
                       childAspectRatio:
                       1 / 1, //사진 의 가로 세로의 비율
@@ -109,8 +110,8 @@ class ImageUploadState extends State<ImageUpload> {
                               //삭제 버튼
                               child: IconButton(
                                 padding: EdgeInsets.zero,
-                                constraints: BoxConstraints(),
-                                icon: Icon(Icons.close,
+                                constraints: const BoxConstraints(),
+                                icon: const Icon(Icons.close,
                                     color: Colors.white,
                                     size: 15),
                                 onPressed: () {
