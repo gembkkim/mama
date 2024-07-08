@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mama/user_list_data.dart';
 import 'package:mama/user_list_service.dart';
+//import 'package:wrapped_korean_text/wrapped_korean_text.dart';
 
 class UserList1 extends StatefulWidget {
   const UserList1({super.key});
@@ -77,6 +78,7 @@ class _UserList1State extends State<UserList1> {
                   const SizedBox(width: 10),
                   Text("${userList.age.toString()}세"),
                   const SizedBox(width: 10),
+                  //WrappedKoreanText(userList.note),
                   Text(
                     userList.note,
                     style: const TextStyle(
