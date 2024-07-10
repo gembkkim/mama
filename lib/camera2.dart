@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:dio/dio.dart';
 
 class ImageUpload extends StatefulWidget {
   const ImageUpload({super.key});
@@ -70,6 +71,31 @@ class ImageUploadState extends State<ImageUpload> {
                             )
                         )
                     ),
+                    //파일 업로드(김봉균 추가)
+                    Container(
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(color: Colors.lightBlueAccent, borderRadius: BorderRadius.circular(5),
+                          boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.5), spreadRadius: 0.5, blurRadius: 5)],
+                        ),
+                        child: IconButton(
+                            onPressed: () async {
+
+                              multiImage = await picker.pickMultiImage();
+                              setState(() {
+                                //갤러리에서 가지고 온 사진들은 리스트 변수에 저장되므로 addAll()을 사용해서 images와 multiImage 리스트를 합쳐줍니다.
+                                images.addAll(multiImage);
+                                FileUpload1().uploadFiles();
+                              });
+                            },
+                            icon: const Icon(
+                              //Icons.add_photo_alternate_outlined,
+                              Icons.file_upload,
+                              size: 30,
+                              color: Colors.white,
+                            )
+                        )
+                    )
                   ],
                 ),
                 Container(
@@ -132,4 +158,92 @@ class ImageUploadState extends State<ImageUpload> {
         )
     );
   }
+}
+
+class FileUpload1 {
+  //_FileUpload1State createState() => _FileUpload1State();
+
+  // final ImagePicker _picker = ImagePicker(); //picker
+  // List<XFile>? _imageFiles; //images
+
+
+  // final picker = ImagePicker();
+  // XFile? image; // 카메라로 촬영한 이미지를 저장할 변수
+  // List<XFile?> multiImage = []; // 갤러리에서 여러장의 사진을 선택해서 저장할 변수
+  // List<XFile?> images = []; // 가져온 사진들을 보여주기 위한 변수
+
+  Future<void> uploadFiles() async {
+    // final List<XFile>? selectedImages = await picker.pickMultiImage();
+    // if (selectedImages != null) {
+    //   setState(() {
+    //     images = selectedImages;
+    //   });
+    // }
+    //debugPrint("1111111111111111111");
+    if (images.isEmpty) {
+      debugPrint("No images selected.");
+      return;
+    } else {
+      debugPrint("${images.length.toString()} 개의 이미지가 있습니다.");
+    }
+
+    try {
+      Dio dio = Dio();
+      String uploadUrl = 'http://10.0.2.2:8080/upload';
+
+      Iterable<Future<MultipartFile>> multipartFiles = images.map((file) async {
+        return MultipartFile.fromFile(file!.path, filename: file.name);
+      });
+
+
+      FormData formData = FormData.fromMap({
+        'files': await Future.wait(multipartFiles),
+      });
+
+      Response response = await dio.post(uploadUrl, data: formData);
+      debugPrint("Upload response: ${response.data}");
+    } catch (e) {
+      debugPrint("Upload failed: $e");
+    }
+  }
+
+  void setState(Null Function() param0) {}
+  //
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     appBar: AppBar(
+  //       title: Text('File Upload Example'),
+  //     ),
+  //     body: Center(
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           ElevatedButton(
+  //             onPressed: _pickImages,
+  //             child: Text('Pick Images'),
+  //           ),
+  //           SizedBox(height: 20),
+  //           ElevatedButton(
+  //             onPressed: _uploadFiles,
+  //             child: Text('Upload Files'),
+  //           ),
+  //           SizedBox(height: 20),
+  //           _imageFiles != null
+  //               ? Wrap(
+  //             spacing: 10,
+  //             children: _imageFiles!.map((file) {
+  //               return Image.file(
+  //                 File(file.path),
+  //                 width: 100,
+  //                 height: 100,
+  //               );
+  //             }).toList(),
+  //           )
+  //               : Container(),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }
