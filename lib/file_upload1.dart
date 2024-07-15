@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 
-class MyApp2 extends StatelessWidget {
-  const MyApp2({super.key});
 
+class MyApp3 extends StatefulWidget {
+  const MyApp3({super.key});
+
+  @override
+  State<MyApp3> createState() => _MyApp3State();
+}
+
+class _MyApp3State extends State<MyApp3> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -21,8 +27,40 @@ class FileUploadPage extends StatefulWidget {
   _FileUploadPageState createState() => _FileUploadPageState();
 }
 
+//final dio = Dio(); // With default `Options`.
+
+// void configureDio() {
+//   // Set default configs
+//   dio.options.baseUrl = 'http://10.0.2.2:8080';
+//   dio.options.connectTimeout = const Duration(seconds: 10);
+//   dio.options.receiveTimeout = const Duration(seconds: 10);
+//
+//   // Or create `Dio` with a `BaseOptions` instance.
+//   final options = BaseOptions(
+//     baseUrl: 'http://10.0.2.2:8080',
+//     connectTimeout: const Duration(seconds: 10),
+//     receiveTimeout: const Duration(seconds: 10),
+//   );
+//   final anotherDio = Dio(options);
+// }
+
 class _FileUploadPageState extends State<FileUploadPage> {
   Dio dio = Dio();
+
+  // Set default configs
+  // dio.options.baseUrl = 'http://10.0.2.2:8080';
+  // dio.options.connectTimeout = const Duration(seconds: 10);
+  // dio.options.receiveTimeout = const Duration(seconds: 10);
+
+  // Or create `Dio` with a `BaseOptions` instance.
+  BaseOptions options = BaseOptions(
+  baseUrl: 'http://10.0.2.2:8080',
+  connectTimeout: const Duration(seconds: 10),
+  receiveTimeout: const Duration(seconds: 10),
+    headers:  {
+      "Content-Type": "multipart/form-data",
+    },
+  );
 
   Future<void> _pickAndUploadFiles() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true, type: FileType.any, withData: true);
@@ -50,7 +88,10 @@ class _FileUploadPageState extends State<FileUploadPage> {
           uploadUrl,
           data: formData,
           options: Options(
-            headers: {
+            //baseUrl: 'http://10.0.2.2:8080',
+            sendTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(seconds: 10),
+            headers:  {
               "Content-Type": "multipart/form-data",
             },
           ),

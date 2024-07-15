@@ -244,7 +244,7 @@ class MyPage extends StatelessWidget {
                   //페이지 이동
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MyApp2()),
+                    MaterialPageRoute(builder: (context) => const MyApp3()),
                   );
                 },
                 child: const Text("일반 파일 업로드"),
